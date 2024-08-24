@@ -1,31 +1,50 @@
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
-
+import { FlatGrid } from 'react-native-super-grid';
+import cards from '../../assets/cardList'
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View style={{marginTop:40}}>
+
+        {/* More info on grid = https://github.com/saleel/react-native-super-grid?tab=readme-ov-file */}
+        <FlatGrid
+        adjustGridToStyles={true}
+        data={cards}
+        itemDimension={100}
+        spacing={5}
+        renderItem={({index}) => {
+          return (
+            <View  style={styles.singleCard}>
+              <TouchableOpacity style={styles.cardContainer} activeOpacity={.8}>
+                <Image style={styles.card} source={cards[index]}></Image>
+              </TouchableOpacity>
+            </View>
+          )
+        }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  singleCard: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "auto",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  cardContainer: {
+    width:"100%",
+    paddingHorizontal:"auto",
+    aspectRatio: 1 / 2,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  card: {
+    alignSelf: "center",
+    resizeMode: "stretch",
+    height: "100%",
+    width: "100%",
   },
 });
