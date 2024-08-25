@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { ScrollViewStyleReset } from 'expo-router/html';
 
 // This file is web-only and used to configure the root HTML for every
@@ -5,6 +6,9 @@ import { ScrollViewStyleReset } from 'expo-router/html';
 // The contents of this function only run in Node.js environments and
 // do not have access to the DOM or browser APIs.
 export default function Root({ children }: { children: React.ReactNode }) {
+  const [loaded, error] = useFonts({
+    Pamela: require('../assets/fonts/TarotPamelaColmanSmith-Regular.ttf'),
+  });
   return (
     <html lang="en">
       <head>

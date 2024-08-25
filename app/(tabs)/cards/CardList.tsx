@@ -1,16 +1,27 @@
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { FlatGrid } from 'react-native-super-grid';
-
 import { useFonts } from 'expo-font';
 import cardList from '@/assets/cardList';
-export default function TabOneScreen() {
+import { Link, Redirect } from 'expo-router';
+import { useEffect, useState } from 'react';
 
-  const [loaded, error] = useFonts({
-    Pamela: require('../../../assets/fonts/TarotPamelaColmanSmith-Regular.ttf'),
-  });
+
+// * Component
+export default function TabOneScreen() {
+  // 1* Component's hooks
+  let [cardData, setCardData]:any = useState([])
+  useEffect(() => {
+    fetch("https://tarotapi.dev/api/v1/cards")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function ({cards}) {
+        setCardData(cards)
+      })
+  }, [])
+
+  // 1* Component's return
   return (
     <View style={{marginTop:40}} >
         <Text style={styles.header}>
@@ -18,22 +29,23 @@ export default function TabOneScreen() {
         </Text>
         {/* More info on grid = https://github.com/saleel/react-native-super-grid?tab=readme-ov-file */}
         <FlatGrid
-        adjustGridToStyles={true}
-        data={cardList}
-        itemDimension={100}
-        spacing={5}
-        renderItem={({index}) => {
-          return (
-            <View  style={styles.singleCard}>
-              <TouchableOpacity style={styles.cardContainer} activeOpacity={.8}>
-                <Image style={styles.card} source={cardList[index]}></Image>
-              </TouchableOpacity>
-            </View>
-          )
-        }}
-      />
+          adjustGridToStyles={true}
+          data={cardData}
+          itemDimension={100}
+          spacing={5}
+          renderItem={({index}) => {
+            return (
+              <Link style={styles.singleCard} href={`/cards/${index}?cardCode=${cardData[index].name_short}`} asChild>
+                <TouchableOpacity style={styles.cardContainer} activeOpacity={.8}>
+                  <Image style={styles.card} source={cardList[index]}></Image>
+                </TouchableOpacity>
+              </Link>
+            )
+          }}
+        />
     </View>
   );
+
 }
 
 const styles = StyleSheet.create({

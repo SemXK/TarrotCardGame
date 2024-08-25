@@ -4,7 +4,7 @@ import React from 'react'
 const CardLayout = () => {
   return (
     <Stack >
-      <Stack.Screen name='cardDetail' options={{headerShown :false}}></Stack.Screen>
+      <Stack.Screen name='CardList' options={{headerShown :false}}></Stack.Screen>
     </Stack>
   )
 }

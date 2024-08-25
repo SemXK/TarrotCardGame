@@ -3,7 +3,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 const CardIndex = () => {
-  return <Redirect href={'/cards/cardDetail/'} />
+  return <Redirect href={'/cards/CardList/'} />
 }
 
 export default CardIndex
