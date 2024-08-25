@@ -29,7 +29,7 @@ export default function TabLayout() {
         headerShown: false,
       }}>
       <Tabs.Screen
-        name="index"
+        name="cards"
         options={{
           title: 'All Cards',
           tabBarIcon: ({ color }) => 
@@ -39,7 +39,7 @@ export default function TabLayout() {
               color={colorScheme == 'dark' ? 'white' : 'black'} />
             ,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/cards" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -48,14 +48,14 @@ export default function TabLayout() {
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
-                )}
+                )} 
               </Pressable>
             </Link>
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="predictions"
         options={{
           title: 'Astrology',
           tabBarIcon: ({ color }) =>
