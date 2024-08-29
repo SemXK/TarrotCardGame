@@ -5,22 +5,13 @@ import { useFonts } from 'expo-font';
 import cardList from '@/assets/cardList';
 import { Link, Redirect } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { getCardData } from '@/app/providers/TarotProvider';
 
 
 // * Component
 export default function TabOneScreen() {
   // 1* Component's hooks
-  let [cardData, setCardData]:any = useState([])
-  useEffect(() => {
-    fetch("https://tarotapi.dev/api/v1/cards")
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function ({cards}) {
-        setCardData(cards)
-      })
-  }, [])
-
+  const cardData = getCardData().items
   // 1* Component's return
   return (
     <View style={{marginTop:40}} >
@@ -51,10 +42,11 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   singleCard: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     height: "auto",
+    // marginVertical:10,
   },
   cardContainer: {
     width:"100%",
