@@ -18,7 +18,6 @@ export default function TabOneScreen() {
         <Text style={styles.header}>
           Galleria dei Tarocchi
         </Text>
-        {/* More info on grid = https://github.com/saleel/react-native-super-grid?tab=readme-ov-file */}
         <FlatGrid
           adjustGridToStyles={true}
           data={cardData}

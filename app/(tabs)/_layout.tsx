@@ -5,7 +5,7 @@ import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import TarotProvider from "../providers/TarotProvider";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -24,11 +24,9 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-          // Disable the static render of the header on web
-          // to prevent a hydration error in React Navigation v6.
           headerShown: false,
         }}
-      >
+        >
         <Tabs.Screen
           name="cards"
           options={{
@@ -40,20 +38,6 @@ export default function TabLayout() {
                 color={colorScheme == "dark" ? "white" : "black"}
               />
             ),
-            headerRight: () => (
-              <Link href="/cards" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-            ),
           }}
         />
         <Tabs.Screen
@@ -61,15 +45,28 @@ export default function TabLayout() {
           options={{
             title: "Prediction",
             tabBarIcon: ({ color }) => (
-              <MaterialIcons
-                name="stars"
+              <MaterialIcons name="batch-prediction"
                 size={24}
                 color={colorScheme == "dark" ? "white" : "black"}
               />
             ),
           }}
         />
+              <Tabs.Screen
+          name="horoscope"
+          options={{
+            title: "Horoscope",
+            tabBarIcon: ({ color }) => (
+              <FontAwesome5 name="star-of-david"
+                size={24}
+                color={colorScheme == "dark" ? "white" : "black"}
+              />
+            ),
+
+          }}
+      />
       </Tabs>
+
     </TarotProvider>
   );
 }

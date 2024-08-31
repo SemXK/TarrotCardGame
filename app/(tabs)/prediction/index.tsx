@@ -28,17 +28,17 @@ const colorScheme = Appearance.getColorScheme();
 
 export default function TabTwoScreen() {
   // 1* Components hooks
-  let [card, setCard] = useState(0);
+  let [card, setCard] = useState(Math.round(Math.random() * cardList.length - 1));
   let [showDesc, setShowDesk] = useState(false);
 
   let [cardData, setCardData] = useState(getCardData().items);
-  let [flipped, setFlipped] = useState(true);
+  let [flipped, setFlipped] = useState(false);
 
 
   // 1* Custom variables
   const spin = useSharedValue<number>(0);
 
-  const backAnimatedStyle = useAnimatedStyle(() => {
+  const frontAnimatedStyle = useAnimatedStyle(() => {
     const spinVal = interpolate(spin.value, [0, 1], [180, 360]);
     return {
       transform: [
@@ -49,7 +49,7 @@ export default function TabTwoScreen() {
     };
   }, []);
 
-  const frontAnimatedStyle = useAnimatedStyle(() => {
+  const backAnimatedStyle = useAnimatedStyle(() => {
     const spinVal = interpolate(spin.value, [0, 1], [0, 180]);
     return {
       transform: [
@@ -65,7 +65,7 @@ export default function TabTwoScreen() {
       <View style={styles.container}>
         {/* Back Card */}
         <Animated.View style={[styles.back, backAnimatedStyle]}>
-          <TouchableOpacity activeOpacity={0.6} onPress={() => {}}>
+          <TouchableOpacity activeOpacity={1} >
             <Image source={cardList[cardList.length - 1]} />
           </TouchableOpacity>
         </Animated.View>
@@ -73,15 +73,15 @@ export default function TabTwoScreen() {
         {/* Front Card */}
         <Animated.View style={[styles.front, frontAnimatedStyle]}>
           <TouchableOpacity
-            activeOpacity={0.6}
+            activeOpacity={1}
             onPress={() => {
               spin.value = spin.value ? 0 : 1;
-              console.log(card)
               if (spin.value) {
-                setCard(Math.round(Math.random() * cardList.length));
-                setShowDesk(true)
-              }else{
                 setShowDesk(false)
+              }
+              else{
+                setCard(Math.round(Math.random() * cardList.length - 1));
+                setShowDesk(true)
               }
             }}
           >
@@ -175,3 +175,11 @@ const styles = StyleSheet.create({
     color: colorScheme == "dark" ? "white" : "black",
   },
 });
+
+
+
+
+
+
+
+

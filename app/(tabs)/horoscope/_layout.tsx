@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router'
 import React from 'react'
-const CardLayout = () => {
+const HoroscopeStack = () => {
   return (
     <Stack >
       <Stack.Screen name='index' options={{headerShown :false}}></Stack.Screen>
@@ -8,4 +8,4 @@ const CardLayout = () => {
   )
 }
 
-export default CardLayout
+export default HoroscopeStack
